@@ -1,0 +1,15 @@
+export const data =  [
+'https://m.media-amazon.com/images/I/81v1jz3uwbL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/71bFxC0WfJL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/91cG7bgXodL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/816aW0flXHL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/81-N0WcJYWL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/81qd+aaeI2L._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/81bwBpZpHqL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/81kaulpwXSL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/91nyjN2-K4L._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/91ul4syd2YL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/81OHFehUiHL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/811LOWt5dCL._SL1500_.jpg',
+'https://m.media-amazon.com/images/I/81OHFehUiHL._SL1500_.jpg',
+]
