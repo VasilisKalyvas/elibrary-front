@@ -46,3 +46,8 @@ export const selectBooksListFilters = createSelector(
     [selectBooksState],
     (state) => state.bookslist.filters
 );
+
+export const selectSelectedBook = createSelector(
+    [selectBooksState],
+    (state) => state.bookslist.selectedBook
+);

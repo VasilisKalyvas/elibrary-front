@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { getRecentBooks, getBooks, getCategories, getAuthors } from './actions';
+import { getRecentBooks, getBooks, getCategories, getAuthors, getBookById } from './actions';
 
 const initialState = {
   categories: {
@@ -15,6 +15,7 @@ const initialState = {
     isLoading : false,
   },
   bookslist:{
+    selectedBook: {},
     filters: [],
     books: [],
     isLoading : false,
@@ -27,7 +28,10 @@ const booksSlices = createSlice({
   reducers: {
     setFilters: (state, action) => {
       state.bookslist.filters = action.payload
-    }
+    },
+    clearSelectedBook: (state, action) => {
+      state.bookslist.selectedBook = {}
+    },
   },
   extraReducers:{
     
@@ -44,6 +48,21 @@ const booksSlices = createSlice({
     [getRecentBooks.rejected]:  (state) => {
         state.recentBooks.isLoading = false;
     },
+
+    //Get selected Book
+    [getBookById.fulfilled] :  (state, action) => {
+      state.bookslist.selectedBook = action.payload;
+      state.bookslist.isLoading = false;
+    },
+
+    [getBookById.pending] :  (state) => {
+        state.bookslist.isLoading = true;
+    },
+
+    [getBookById.rejected]:  (state) => {
+        state.bookslist.isLoading = false;
+    },
+
     // Recent Books
     [getBooks.fulfilled] :  (state, action) => {
         state.bookslist.books = action.payload.data;
@@ -88,5 +107,5 @@ const booksSlices = createSlice({
   }
 });
 
-export const { setFilters } = booksSlices.actions;
+export const { setFilters, clearSelectedBook } = booksSlices.actions;
 export default booksSlices.reducer;

@@ -35,6 +35,24 @@ export const getBooks = createAsyncThunk(
     }
 });
 
+export const getBookById = createAsyncThunk(
+  "books/bookById",
+  async (id) => {
+  try {
+    if(!id) return 
+
+    let url = `http://localhost:4000/api/books/${id}`
+    const response = await axios.get(url);
+
+    return response.data
+  } catch (error) {
+    console.log(error);
+    throw error
+  }
+});
+
+
+
 export const getCategories = createAsyncThunk(
   "books/categories",
   async () => {
@@ -55,6 +73,33 @@ export const getAuthors = createAsyncThunk(
   try {
     let url = 'http://localhost:4000/api/author/'
     const response = await axios.get(url);
+
+    return response.data
+  } catch (error) {
+    console.log(error);
+    throw error
+  }
+});
+
+export const rentBook = createAsyncThunk(
+  "books/rent",
+  async (params, { getState }) => {
+  try {
+    const { auth } = getState();
+      const authToken = auth.auth.user.token;
+
+      if (!params || !authToken) {
+        return;
+      }
+
+    let url = 'http://localhost:4000/api/books/book/rent'
+    const response = await axios.post(url, params, {
+        headers: {
+          Authorization: `Bearer ${authToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
 
     return response.data
   } catch (error) {

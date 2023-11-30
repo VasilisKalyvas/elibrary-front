@@ -3,14 +3,15 @@ import { FaUser, FaHeart, FaPowerOff } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUserIsLoggedIn } from '../../store/auth/selectors';
 import { logout } from '../../store/auth/slice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import { defaultToastProps } from '../../helpers/toastProps';
 
 const Header = () => {
   const isLoggedIn = useSelector(selectCurrentUserIsLoggedIn)
   const dispatch = useDispatch()
-
+  const navigate = useNavigate()
+  
   const handleLogout = () => {
     const localStorageContent = localStorage.getItem('persist:root');
     const parsedLocalStorage = JSON.parse(localStorageContent);
@@ -24,7 +25,8 @@ const Header = () => {
     localStorage.setItem('persist:root', updatedLocalStorageContent);
 
     dispatch(logout())
-    toast('Logout Successfuly', defaultToastProps)
+    toast('Logout Successfully', defaultToastProps)
+    navigate(`/`)
   }
 
   return (

@@ -1,7 +1,18 @@
 import React from 'react';
 import { FaCartPlus, FaHeart } from 'react-icons/fa';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 
 const Card = ({item}) => {
+  const navigate = useNavigate()
+
+  const handleRentBook = (item) => {
+    navigate(`/rent/${item?.id}`)
+  }
+
+  const handleAddToFavorites = () => {
+
+  }
   return (
       <div className="
         max-w-[250px] min-w-[250px] 
@@ -18,12 +29,22 @@ const Card = ({item}) => {
           <p className="text-gray-700 text-base mt-2">Published Year: {item.year}</p>
         </div>
         <div className="flex items-center justify-end gap-2 px-6 py-4">
-          <button className="bg-[#37475a] hover:bg-[#febd69] text-white font-bold py-2 px-2 rounded-lg">
-            <FaHeart/>
-          </button>
-          <button className="bg-[#37475a] hover:bg-[#febd69] text-white font-bold py-2 px-2 rounded-lg">
-            <FaCartPlus/>
-          </button>
+          {
+            item?.isAvailable
+            ?
+              <>
+                <button className="bg-[#37475a] hover:bg-[#febd69] text-white font-bold py-2 px-2 rounded-lg">
+                  <FaHeart/>
+                </button>
+                <button
+                  onClick={() => handleRentBook(item)} 
+                  className="bg-[#37475a] hover:bg-[#febd69] text-white font-bold py-2 px-2 rounded-lg">
+                  <FaCartPlus/>
+                </button>
+              </>
+
+            : <div>Not Available!</div>
+          }
         </div>
       </div>
   );

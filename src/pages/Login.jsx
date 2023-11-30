@@ -17,7 +17,7 @@ const Login = () => {
     const handleSubmit = () => {
         if(!email?.length || !password?.length) return
         dispatch(login({email, password}))
-        toast('Login Successfuly', defaultToastProps)
+        toast('Login Successfully', defaultToastProps)
         setEmail('')
         setPassword('')
     }
