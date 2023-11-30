@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUserIsLoggedIn } from '../../store/auth/selectors';
 import { logout } from '../../store/auth/slice';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify'
+import { defaultToastProps } from '../../helpers/toastProps';
 
 const Header = () => {
   const isLoggedIn = useSelector(selectCurrentUserIsLoggedIn)
@@ -22,6 +24,7 @@ const Header = () => {
     localStorage.setItem('persist:root', updatedLocalStorageContent);
 
     dispatch(logout())
+    toast('Logout Successfuly', defaultToastProps)
   }
 
   return (

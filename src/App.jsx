@@ -4,6 +4,8 @@ import Header from './components/general/Header';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -17,6 +19,7 @@ function App() {
             {/* Add more routes as needed */}
           </Routes>
       </>
+      <ToastContainer/>
     </Router>
   );
 }

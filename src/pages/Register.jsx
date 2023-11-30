@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../store/auth/actions'
 import { useNavigate } from 'react-router-dom'
 import { selectCurrentUserIsLoggedIn } from '../store/auth/selectors'
+import { toast } from 'react-toastify'
+import { defaultToastProps } from '../helpers/toastProps'
 
 const Register = () => {
     const isLoggedIn = useSelector(selectCurrentUserIsLoggedIn);
@@ -16,6 +18,7 @@ const Register = () => {
     const handleSubmit = () => {
         if(!username.length || !email?.length || !password?.length) return
         dispatch(register({username, email, password}))
+        toast('Register Successfully', defaultToastProps)
         setEmail('')
         setPassword('')
     }
