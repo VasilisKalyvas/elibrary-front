@@ -5,7 +5,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import { selectCurrentUser } from '../../store/auth/selectors';
+import { selectCurrentUser, selectCurrentUserIsAdmin } from '../../store/auth/selectors';
 import { errorToastProps, defaultToastProps } from '../../helpers/toastProps';
 import { toast } from 'react-toastify'
 import { getBookById, rentBook } from '../../store/books/actions';
@@ -52,7 +52,6 @@ const Form = () => {
     getBook()
   }, [])
 
-  console.log(id, selectedBook)
   return (
     <div className='w-full flex items-center justify-between flex-wrap gap-4'>
       {

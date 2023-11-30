@@ -107,3 +107,31 @@ export const rentBook = createAsyncThunk(
     throw error
   }
 });
+
+export const returnBook = createAsyncThunk(
+  "books/return",
+  async (params, { getState }) => {
+  try {
+    const { auth } = getState();
+      const authToken = auth.auth.user.token;
+      const isAdmin =  auth.auth.user.role === 'admin';
+
+      if (!params || !authToken || !isAdmin) {
+        return;
+      }
+
+    let url = 'http://localhost:4000/api/books/book/return'
+    const response = await axios.post(url, params, {
+        headers: {
+          Authorization: `${authToken}`,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+
+    return response.data
+  } catch (error) {
+    console.log(error);
+    throw error
+  }
+});

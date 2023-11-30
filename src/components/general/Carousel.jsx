@@ -1,8 +1,10 @@
 import React, { useRef } from "react";
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import Spinner from "./Spinner";
+import { useNavigate } from "react-router-dom";
 
 const Carousel = ({data, isLoading}) => {
+  const navigate = useNavigate()
   const screenWidth = window.innerWidth;
   const elementRef = useRef();
 
@@ -60,6 +62,7 @@ const Carousel = ({data, isLoading}) => {
             {
               data.map((item, index) => (
                 <img
+                  onClick={() => navigate(`/rent/${item?.id}`)}
                   key={index}
                   src={item?.image}
                   className="w-[120px] md:w-[160px] 

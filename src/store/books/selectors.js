@@ -51,3 +51,25 @@ export const selectSelectedBook = createSelector(
     [selectBooksState],
     (state) => state.bookslist.selectedBook
 );
+
+export const selectSelectedBookIsAvailable = createSelector(
+    [selectBooksState],
+    (state) => state.bookslist.selectedBook.isAvailable
+);
+
+
+export const selectSelectedBookRendedBy = createSelector(
+    [selectBooksState],
+    (state) => state.bookslist.selectedBook.rendedBy
+);
+
+export const selectSelectedBookRents = createSelector(
+    [selectBooksState],
+    (state) => state.bookslist.selectedBook.rents
+  );
+  
+  export const selectActiveRent = createSelector(
+    [selectSelectedBookRents],
+    (rents) => ({id, status}) =>{
+      return rents.find((rent) => rent?.bookId === id && rent.status === status)}
+  );

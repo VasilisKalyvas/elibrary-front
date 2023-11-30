@@ -12,6 +12,11 @@ export const selectCurrentUserIsLoggedIn = createSelector(
     (state) => state.auth.user.token
 );
 
+export const selectCurrentUserIsAdmin = createSelector(
+    [selectAuthState],
+    (state) => state.auth.user.role === 'admin'
+);
+
 export const selectAuthIsLoading = createSelector(
     [selectAuthState],
     (state) => state.auth.isLoading
