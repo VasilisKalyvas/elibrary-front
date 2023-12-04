@@ -21,3 +21,23 @@ export const selectAuthIsLoading = createSelector(
     [selectAuthState],
     (state) => state.auth.isLoading
 );
+
+export const selectAdminUsersList = createSelector(
+    [selectAuthState],
+    (state) => state.auth.admin.users.list
+);
+
+export const selectAdminUsersIsLoading = createSelector(
+    [selectAuthState],
+    (state) => state.auth.admin.users.isLoading
+);
+
+export const selectAdminRentsList = createSelector(
+    [selectAuthState],
+    (state) => state.auth.admin.rents.list
+);
+
+export const selectAdminRentsIsLoading = createSelector(
+    [selectAuthState],
+    (state) => state.auth.admin.rents.isLoading
+);

@@ -7,6 +7,9 @@ import Register from './pages/Register';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import RentBook from './pages/RentBook';
+import AdminUsers from './pages/AdminUsers';
+import AdminBooks from './pages/AdminBooks';
+import AdminRents from './pages/AdminRents';
 
 function App() {
   return (
@@ -18,6 +21,9 @@ function App() {
             <Route path="/register" element={<Register/>} restricted={true} />
             <Route path="/" element={<LandingPage/>} />
             <Route path="/rent/:id" element={<RentBook/>} />
+            <Route path="/admin/users" element={<AdminUsers/>} />
+            <Route path="/admin/books" element={<AdminBooks/>} />
+            <Route path="/admin/rents" element={<AdminRents/>} />
             {/* Add more routes as needed */}
           </Routes>
       </>

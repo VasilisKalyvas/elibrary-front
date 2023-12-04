@@ -29,16 +29,26 @@ const SideDrawer = ({
                     {body}
                 </div>
                 <div className="flex items-center justify-end p-4 gap-2">
-                <button className="bg-blue-500 hover:bg-blue-700
-                        text-white font-bold py-2 px-4 rounded"
-                        onClick={onReset}>
-                            Reset
-                    </button>
-                    <button className="bg-green-500 hover:bg-green-700
-                        text-white font-bold py-2 px-4 rounded"
-                        onClick={onApply}>
-                            Apply
-                    </button>
+                    {
+                        onReset
+                        ?
+                            <button className="bg-blue-500 hover:bg-blue-700
+                                text-white font-bold py-2 px-4 rounded"
+                                onClick={onReset}>
+                                    Reset
+                            </button>
+                        : null
+                    }
+                    {
+                        onApply 
+                        ?
+                            <button className="bg-green-500 hover:bg-green-700
+                                text-white font-bold py-2 px-4 rounded"
+                                onClick={onApply}>
+                                    Apply
+                            </button>
+                        : null
+                    }
                     <button className="bg-red-500 hover:bg-red-700
                         text-white font-bold py-2 px-4 rounded"
                         onClick={onClose}>

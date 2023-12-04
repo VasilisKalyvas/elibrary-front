@@ -1,17 +1,19 @@
 import React from 'react'
 import { FaUser, FaHeart, FaPowerOff } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUserIsLoggedIn } from '../../store/auth/selectors';
+import { selectCurrentUserIsAdmin, selectCurrentUserIsLoggedIn } from '../../store/auth/selectors';
 import { logout } from '../../store/auth/slice';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'
 import { defaultToastProps } from '../../helpers/toastProps';
+import AdminDropDown from '../admin/users-list/AdminDropDown';
 
 const Header = () => {
   const isLoggedIn = useSelector(selectCurrentUserIsLoggedIn)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  
+  const isAdmin = useSelector(selectCurrentUserIsAdmin)
+
   const handleLogout = () => {
     const localStorageContent = localStorage.getItem('persist:root');
     const parsedLocalStorage = JSON.parse(localStorageContent);
@@ -41,6 +43,12 @@ const Header = () => {
                 isLoggedIn
                 ?
                   <div className='flex items-center justify-between gap-5'>
+                    { 
+                      isAdmin
+                      ?
+                        <AdminDropDown />
+                      : null
+                    }
                     <FaUser className='cursor-pointer hover:text-[#febd69]'/>
                     <FaHeart className='cursor-pointer hover:text-[#febd69]'/>
                     <FaPowerOff className='cursor-pointer hover:text-[#febd69]' onClick={handleLogout}/>
