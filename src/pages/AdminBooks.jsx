@@ -8,6 +8,7 @@ import { selectBooks, selectBooksisLoading } from '../store/books/selectors';
 import { getBooks } from '../store/books/actions';
 import Rent from '../components/admin/books/Rent';
 import Actions from '../components/admin/books/Actions';
+import Filters from '../components/filters';
 
 const AdminBooks = () => {
   const dispatch = useDispatch()
@@ -39,6 +40,7 @@ const AdminBooks = () => {
 
   return (
     <div className='pt-12 pl-4 pr-4'>
+      <Filters groupButtonsTheme={'light'}/>
       <GeneralTable 
         columns={columns} 
         data={filteredRents} 

@@ -2,18 +2,12 @@ import React, { useState } from 'react'
 import { BiSort } from "react-icons/bi";
 import { TfiMenuAlt } from "react-icons/tfi";
 import Drawer from '../drawer';
-import FiltersBody from './FiltersBody';
-import { useSelector } from 'react-redux';
-import { setFilters } from '../../store/books/slice';
 import useFilters from '../../hooks/useFilter';
-import { selectBooksListFilters } from '../../store/books/selectors';
 
-const FilterGroupButtons = () => {
-  const filters = useSelector(selectBooksListFilters)
-
+const FilterGroupButtons = ({ FiltersBodyComponent, filters, setFiltersAction, groupButtonsTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
   const {handleFilterSelect, resetFilters, applyFilters } = useFilters({
-   setFunction: setFilters,
+    setFiltersAction,
     filters
   });
 
@@ -30,23 +24,33 @@ const FilterGroupButtons = () => {
   const openDrawer = () => setIsOpen(true);
   const closeDrawer = () => setIsOpen(false);
 
+  const FiltersBodyComponentWithProps = React.cloneElement(FiltersBodyComponent, {
+    handleFilterSelect,
+  });
+
   return (
     <>
       <div className='flex items-center justify-between gap-3'>
-        <div className='border-2 
-                  rounded-lg p-1 
-                  border-[#37475a] text-[#37475a] 
-                  hover:border-[#febd69] hover:text-[#febd69] cursor-pointer'
+        <div className={`border-2 
+                        rounded-lg p-2
+                        cursor-pointer
+                        border-[#37475a] text-[#37475a] 
+                        hover:border-[#febd69] hover:text-[#febd69]
+                        ${groupButtonsTheme !== 'dark' ? `bg-white`: ''}
+                        `}
                   onClick={openDrawer}
                   >
               <TfiMenuAlt size={24}/>
           </div>
-          <div className='border-2 
-                  rounded-lg p-1 
-                  border-[#37475a] text-[#37475a] 
-                  hover:border-[#febd69] hover:text-[#febd69] cursor-pointer'>
+          {/* <div className={`border-2 
+                        rounded-lg p-1
+                        cursor-pointer
+                        border-[#37475a] text-[#37475a] 
+                        hover:border-[#febd69] hover:text-[#febd69]
+                        ${groupButtonsTheme !== 'dark' ? `bg-white`: ''}
+                      `}>
               <BiSort size={24}/>
-          </div>
+          </div> */}
       </div>
       {
         isOpen
@@ -56,11 +60,7 @@ const FilterGroupButtons = () => {
               onClose={closeDrawer}
               onApply={handleApply}
               onReset={handleReset}
-              body={
-                <FiltersBody 
-                  handleFilterSelect={handleFilterSelect}
-                />
-              }    
+              body={FiltersBodyComponentWithProps}    
               header='Filters'/>
         : null
       }

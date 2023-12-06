@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
-const useFilters = ({setFunction, filters}) => {
+const useFilters = ({setFiltersAction, filters}) => {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const dispatch = useDispatch()
 
@@ -11,7 +11,7 @@ const useFilters = ({setFunction, filters}) => {
     const updatedFilters = filters.filter(
       (filter) => filter?.key !== type
     );
-    dispatch(setFunction([...updatedFilters, { key: type, value }]))
+    dispatch(setFiltersAction([...updatedFilters, { key: type, value }]))
 
   }
 
@@ -33,13 +33,13 @@ const useFilters = ({setFunction, filters}) => {
 
   const applyFilters = () => {
     if(selectedFilters?.length){
-      dispatch(setFunction(selectedFilters))
+      dispatch(setFiltersAction(selectedFilters))
     }
   }
 
   const resetFilters = () => {
     setSelectedFilters([])
-    dispatch(setFunction([]))
+    dispatch(setFiltersAction([]))
   };
 
   return { selectedFilters, handleFilterSelect, applyFilters, resetFilters, handleSearchFilter };

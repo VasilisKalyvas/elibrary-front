@@ -9,7 +9,7 @@ const Search = () => {
   const filters = useSelector(selectBooksListFilters)
   const [searchText, setSearchText] = useState('');
   const { handleSearchFilter } = useFilters({
-    setFunction: setFilters, 
+    setFiltersAction: setFilters, 
     filters
   });
 

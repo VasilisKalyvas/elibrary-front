@@ -7,6 +7,8 @@ import Carousel from '../components/general/Carousel'
 import Container from '../components/general/Container'
 import Filters from '../components/filters'
 import Books from '../components/general/Books'
+import FiltersBody from '../components/filters/FiltersBody';
+import { setFilters } from '../store/books/slice';
 
 const LandingPage = () => {
   const dispatch = useDispatch()
@@ -36,7 +38,9 @@ const LandingPage = () => {
             <Carousel data={recentBooks} isLoading={isRecentBooksLoading}/>
         </Container>
         <Container>
-            <Filters/>
+            <div className='mb-10 ml-auto'>
+              <Filters FiltersBodyComponent={<FiltersBody/>} filters={filters} setFiltersAction={setFilters}/>
+            </div>
             <Books data={books} isLoading={isBooksLoading}/>
         </Container>
     </div>
