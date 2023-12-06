@@ -8,13 +8,27 @@ import { selectCurrentUserIsLoggedIn } from '../../../store/auth/selectors';
 import { toast } from 'react-toastify'
 import { defaultToastProps } from '../../../helpers/toastProps';
 
-const RentActions = ({rentId, bookId}) => {
+const RentActions = ({rentId}) => {
     const dispatch = useDispatch()
     const token = useSelector(selectCurrentUserIsLoggedIn)
 
-    const handleChangeStatus = () => {
+    const handleChangeStatus = async () => {
+        if(!rentId) return
         try {
-            
+            const url = `http://localhost:4000/api/books/update/rent/status/${rentId}`;
+            const response = await axios.put(url, {}, {
+                headers: {
+                    Authorization: `${token}`,
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if(response?.data.message){
+                dispatch(getAllRents())
+            } else {
+                return
+            }
+            toast('Updated Successfully', defaultToastProps)
         } catch (error) {
             throw error
         }
@@ -24,11 +38,11 @@ const RentActions = ({rentId, bookId}) => {
         if(!rentId || !token) return
         try {
             const url = `http://localhost:4000/api/books/delete/rent/${rentId}`;
-           const response = await axios.delete(url, {
-            headers: {
-                Authorization: `${token}`, // Assuming it's a Bearer token
-                'Content-Type': 'application/json',
-            },
+            const response = await axios.delete(url, {
+                headers: {
+                    Authorization: `${token}`,
+                    'Content-Type': 'application/json',
+                },
             });
 
             if(response?.data?.deletedRent){

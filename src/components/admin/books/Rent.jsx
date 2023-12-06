@@ -1,37 +1,31 @@
 import React, { useState } from 'react'
 import SideDrawer from '../../drawer'
-import axios from 'axios'
-import BookDrawerBody from './BookDrawerBody'
+import RentDrawerBody from './RentDrawerBody'
+import { useSelector } from 'react-redux'
+import { selectAdminRentById } from '../../../store/auth/selectors'
+import dayjs from 'dayjs'
 
-const Book = ({value}) => {
+const Rent = ({value}) => {
     const [isOpen, setIsOpen] = useState(false)
-    const [book, setBook] = useState(false)
-  
+    const rent = useSelector((state) => selectAdminRentById(state)({id: value}))
+
     const handleOpenModal = async () => {
       if(!value) return
-      try {
-        let url = `http://localhost:4000/api/books/${value}`
-        const response = await axios.get(url);
-  
-        setBook(response.data);
         setIsOpen(!isOpen)
-      } catch (error) {
-        throw error
-      }
     }
-  
+    
     return (
     <>
       <div className={`flex items-center justify-center ${value ? 'cursor-pointer': ''} text-purple-700`} onClick={handleOpenModal}>
         {value ? value : '-'}
       </div>
       {
-        isOpen
+        isOpen && rent
         ?
           <SideDrawer
             onClose={handleOpenModal}
-            header={book?.title}
-            body={<BookDrawerBody book={book}/>}
+            header={`${dayjs(rent?.from).format('DD-MM-YYYY')} ~ ${dayjs(rent?.until).format('DD-MM-YYYY')}`}
+            body={<RentDrawerBody rent={rent}/>}
           />
         : null
       }
@@ -39,4 +33,4 @@ const Book = ({value}) => {
     )
   }
 
-export default Book
+export default Rent

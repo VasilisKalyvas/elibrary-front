@@ -41,3 +41,9 @@ export const selectAdminRentsIsLoading = createSelector(
     [selectAuthState],
     (state) => state.auth.admin.rents.isLoading
 );
+
+export const selectAdminRentById = createSelector(
+    [selectAdminRentsList],
+    (rents) => ({id}) =>{
+      return rents.find((rent) => rent?.id === id )}
+  );

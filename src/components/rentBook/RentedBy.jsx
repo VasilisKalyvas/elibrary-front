@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux'
 import { selectActiveRent } from '../../store/books/selectors'
 import dayjs from 'dayjs'
 
-const RentedBy = ({data, bookId}) => {
-    const activeRent = useSelector((state) => selectActiveRent(state)({id: bookId, status: 'rent'}))
+const RentedBy = () => {
+    const activeRent = useSelector(selectActiveRent)
   return (
     <div className='w-full flex flex-col'>
         <div>
-            This Book is rented by <span className='underline'>{data?.username}</span>
+            This Book is rented by <span className='underline'>{activeRent?.user?.username}</span>
         </div>
         <div>
             From: {dayjs(activeRent?.from).format('DD-MM-YYYY')}

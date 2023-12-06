@@ -6,6 +6,8 @@ import useTableKeys from '../hooks/useTableKeys';
 import User from '../components/admin/rents/User';
 import { selectBooks, selectBooksisLoading } from '../store/books/selectors';
 import { getBooks } from '../store/books/actions';
+import Rent from '../components/admin/books/Rent';
+import Actions from '../components/admin/books/Actions';
 
 const AdminBooks = () => {
   const dispatch = useDispatch()
@@ -19,7 +21,8 @@ const AdminBooks = () => {
     createdAt: (value) => <div>{dayjs(value).format('DD-MM-YYYY')}</div>,
     isAvailable: (value) => <div>{value === false ? 'False' : 'True'}</div>,
     rentedById: (value) => <User value={value}/>,
-    actions: (book) => <>{book?.bookId?.props?.value}</>
+    activeRentId: (value) => <Rent value={value}/>,
+    actions: (book) => <Actions id={book?.id.props?.children}/>
   };
 
   const books = useSelector(selectBooks);

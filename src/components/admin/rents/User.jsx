@@ -30,8 +30,8 @@ const User = ({value}) => {
   
     return (
     <>
-      <div className='cursor-pointer underline text-purple-700' onClick={handleOpenModal}>
-        {value}
+      <div className={`flex items-center justify-center ${value ? 'cursor-pointer': ''} text-purple-700`} onClick={handleOpenModal}>
+        {value ? value : '-'}
       </div>
       {
         isOpen

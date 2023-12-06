@@ -13,7 +13,7 @@ const AdminView = () => {
     <div className='pt-4 w-full flex flex-col items-center'>
         {
             rendedBy && !isAvailable
-            ?   <RentedBy data={rendedBy} bookId={selectedBook?.id}/>
+            ?   <RentedBy/>
             : null
         }
         <AdminActions isAvailable={isAvailable} userId={rendedBy?.id} bookId={selectedBook?.id}/>

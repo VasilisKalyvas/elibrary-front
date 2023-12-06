@@ -69,7 +69,6 @@ export const selectSelectedBookRents = createSelector(
   );
   
   export const selectActiveRent = createSelector(
-    [selectSelectedBookRents],
-    (rents) => ({id, status}) =>{
-      return rents.find((rent) => rent?.bookId === id && rent.status === status)}
+    [selectBooksState],
+    (state) => state.bookslist.selectedBook.activeRent
   );

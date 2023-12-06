@@ -21,7 +21,8 @@ const Card = ({item}) => {
         max-h-[450px] min-h-[450px] 
         md:max-h-[408px] md:min-h-[408px]
         mx-auto bg-white 
-        rounded overflow-hidden shadow-lg"
+        rounded overflow-hidden shadow-lg
+        mt-4"
       >
         <img className="w-full h-48 object-contain" src={item.image} alt="Book Cover" />
         <div className="px-6 py-4">
