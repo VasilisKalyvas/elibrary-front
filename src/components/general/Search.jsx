@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 import { FaSearch } from 'react-icons/fa';
 import useFilters from '../../hooks/useFilter';
+import { useSelector } from 'react-redux';
+import { selectBooksListFilters } from '../../store/books/selectors';
+import { setFilters } from '../../store/books/slice';
 
 const Search = () => {
+  const filters = useSelector(selectBooksListFilters)
   const [searchText, setSearchText] = useState('');
-  const { handleSearchFilter } = useFilters();
+  const { handleSearchFilter } = useFilters({
+    setFunction: setFilters, 
+    filters
+  });
 
   const handleOnChange = (e) => {
     e.preventDefault();

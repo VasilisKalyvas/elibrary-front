@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setFilters } from '../store/books/slice';
-import { selectBooksListFilters } from '../store/books/selectors';
+import { useDispatch } from 'react-redux';
 
-const useFilters = () => {
-  const filters = useSelector(selectBooksListFilters)
+const useFilters = ({setFunction, filters}) => {
   const [selectedFilters, setSelectedFilters] = useState([]);
   const dispatch = useDispatch()
 
@@ -14,7 +11,7 @@ const useFilters = () => {
     const updatedFilters = filters.filter(
       (filter) => filter?.key !== type
     );
-    dispatch(setFilters([...updatedFilters, { key: type, value }]))
+    dispatch(setFunction([...updatedFilters, { key: type, value }]))
 
   }
 
@@ -36,13 +33,13 @@ const useFilters = () => {
 
   const applyFilters = () => {
     if(selectedFilters?.length){
-      dispatch(setFilters(selectedFilters))
+      dispatch(setFunction(selectedFilters))
     }
   }
 
   const resetFilters = () => {
     setSelectedFilters([])
-    dispatch(setFilters([]))
+    dispatch(setFunction([]))
   };
 
   return { selectedFilters, handleFilterSelect, applyFilters, resetFilters, handleSearchFilter };

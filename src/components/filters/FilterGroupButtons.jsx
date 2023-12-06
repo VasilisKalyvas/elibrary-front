@@ -3,14 +3,19 @@ import { BiSort } from "react-icons/bi";
 import { TfiMenuAlt } from "react-icons/tfi";
 import Drawer from '../drawer';
 import FiltersBody from './FiltersBody';
-import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { setFilters } from '../../store/books/slice';
 import useFilters from '../../hooks/useFilter';
+import { selectBooksListFilters } from '../../store/books/selectors';
 
 const FilterGroupButtons = () => {
-  const dispatch = useDispatch();
+  const filters = useSelector(selectBooksListFilters)
+
   const [isOpen, setIsOpen] = useState(false);
-  const { selectedFilters, handleFilterSelect, resetFilters, applyFilters } = useFilters();
+  const {handleFilterSelect, resetFilters, applyFilters } = useFilters({
+   setFunction: setFilters,
+    filters
+  });
 
   const handleApply = () => {
       applyFilters();
