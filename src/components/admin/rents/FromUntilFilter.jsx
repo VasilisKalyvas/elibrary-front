@@ -58,12 +58,52 @@ const FromUntilFilter = () => {
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <div className='ml-auto flex align-items justify-end gap-4'>
             <DatePicker
+              sx={{
+                '.MuiInputLabel-root':{
+                  color: 'white'
+                },
+                '.MuiInputLabel-root.Mui-error':{
+                  color: 'white'
+                },
+                '.MuiInputBase-input': {
+                  color: 'white'
+                },
+                '.MuiButtonBase-root': {
+                  color: 'white'
+                },
+                '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white'
+                },
+                '.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline': {
+                  borderColor: 'white'
+                }
+              }}
               format='DD/MM/YYYY'
               label="From:"
               value={from}
               onChange={(value) => setFrom(value)}
             />
             <DatePicker
+             sx={{
+              '.MuiInputLabel-root':{
+                color: 'white'
+              },
+              '.MuiInputLabel-root.Mui-error':{
+                color: 'white'
+              },
+              '.MuiInputBase-input': {
+                color: 'white'
+              },
+              '.MuiButtonBase-root': {
+                color: 'white'
+              },
+              '.MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'white'
+              },
+              '.MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline': {
+                borderColor: 'white'
+              }
+            }}
               format='DD/MM/YYYY'
               label="Until:"
               value={until}
