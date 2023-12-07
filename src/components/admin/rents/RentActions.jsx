@@ -4,14 +4,21 @@ import { FaTrashAlt } from "react-icons/fa";
 import { GoArrowSwitch } from "react-icons/go";
 import { getAllRents } from '../../../store/auth/actions';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectCurrentUserIsLoggedIn } from '../../../store/auth/selectors';
+import { selectAdminRentsListFilters, selectCurrentUserIsLoggedIn } from '../../../store/auth/selectors';
 import { toast } from 'react-toastify'
 import { defaultToastProps } from '../../../helpers/toastProps';
+import { setRentsFilters } from '../../../store/auth/slice';
+import useFilters from '../../../hooks/useFilter';
 
 const RentActions = ({rentId}) => {
     const dispatch = useDispatch()
     const token = useSelector(selectCurrentUserIsLoggedIn)
-
+    const filters = useSelector(selectAdminRentsListFilters)
+    const { resetFilters } = useFilters({
+        setFiltersAction: setRentsFilters,
+        filters: filters, 
+      });
+    
     const handleChangeStatus = async () => {
         if(!rentId) return
         try {
@@ -28,6 +35,7 @@ const RentActions = ({rentId}) => {
             } else {
                 return
             }
+            resetFilters();
             toast('Updated Successfully', defaultToastProps)
         } catch (error) {
             throw error
@@ -50,6 +58,7 @@ const RentActions = ({rentId}) => {
             } else {
                 return
             }
+            resetFilters();
             toast('Deleted Successfully', defaultToastProps)
         } catch (error) {
             throw error

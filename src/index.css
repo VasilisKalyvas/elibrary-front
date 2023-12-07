@@ -36,3 +36,8 @@ body {
     scroll-behavior: smooth;
     scrollbar-width: thin;
 }
+
+.small-size-date-picker, .MuiInputBase-root {
+    height: 40px;
+    width: 200px;
+}

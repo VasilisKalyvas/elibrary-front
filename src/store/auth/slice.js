@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { login, register, getAllUsers, getAllRents } from './actions';
+import { login, register, getAllUsers, getAllRents, getAllBooks } from './actions';
 
 const initialState = {
   auth: {
@@ -10,10 +10,12 @@ const initialState = {
       },
       books: {
         list: [],
+        filters: [],
         isLoading: false
       },
       rents: {
-        list: [],
+        list: [], 
+        filters: [],
         isLoading: false
       }
     },
@@ -28,6 +30,12 @@ const authSlices = createSlice({
   reducers: {
     logout: (state) => {
       state.auth.user = {}
+    },
+    setBookFilters: (state, action) => {
+      state.auth.admin.books.filters = action.payload
+    },
+    setRentsFilters: (state, action) => {
+      state.auth.admin.rents.filters = action.payload
     }
   },
   extraReducers:{
@@ -70,7 +78,7 @@ const authSlices = createSlice({
       state.auth.admin.users.isLoading = false;
     },
     [getAllRents.fulfilled] :  (state, action) => {
-      state.auth.admin.rents.list = action.payload;
+      state.auth.admin.rents.list = action.payload.data;
       state.auth.admin.rents.isLoading = false;
     },
 
@@ -80,9 +88,21 @@ const authSlices = createSlice({
 
     [getAllRents.rejected]:  (state) => {
       state.auth.admin.rents.isLoading = false;
+    },
+    [getAllBooks.fulfilled] :  (state, action) => {
+      state.auth.admin.books.list = action.payload.data;
+      state.auth.admin.books.isLoading = false;
+    },
+
+    [getAllBooks.pending] :  (state) => {
+      state.auth.admin.books.isLoading = true;
+    },
+
+    [getAllBooks.rejected]:  (state) => {
+      state.auth.admin.books.isLoading = false;
     },  
   }
 });
 
-export const { logout } = authSlices.actions;
+export const { logout, setBookFilters, setRentsFilters } = authSlices.actions;
 export default authSlices.reducer;

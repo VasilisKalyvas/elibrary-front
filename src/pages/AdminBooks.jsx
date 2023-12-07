@@ -1,19 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { GeneralTable } from '../table/GeneralTable';
 import useTableKeys from '../hooks/useTableKeys';
 import User from '../components/admin/rents/User';
-import { selectBooks, selectBooksisLoading } from '../store/books/selectors';
-import { getBooks } from '../store/books/actions';
 import Rent from '../components/admin/books/Rent';
 import Actions from '../components/admin/books/Actions';
 import Filters from '../components/filters';
+import { setBookFilters } from '../store/auth/slice';
+import { selectAdminBooksListFilters, selectAdminBooksIsLoading, selectAdminBooksList } from '../store/auth/selectors';
+import { getAllBooks } from '../store/auth/actions';
+import FiltersBody from '../components/filters/FiltersBody';
 
 const AdminBooks = () => {
   const dispatch = useDispatch()
-  const isLoading = useSelector(selectBooksisLoading)
-
+  const isLoading = useSelector(selectAdminBooksIsLoading)
+  
   const config = {
     id: (value) => <span>{value}</span>,
     title: (value) => <div>{value}</div>,
@@ -25,25 +27,35 @@ const AdminBooks = () => {
     activeRentId: (value) => <Rent value={value}/>,
     actions: (book) => <Actions id={book?.id.props?.children}/>
   };
-
-  const books = useSelector(selectBooks);
-  const filteredRents = useTableKeys(books, config);
+  const filters = useSelector(selectAdminBooksListFilters)
+  const books = useSelector(selectAdminBooksList);
   const columns = Object.keys(config)
+  const table = useTableKeys(books, config)
 
-  const handleGetAllRents = () => {
-    dispatch(getBooks())
+  const handleGetAllBooks = (filters) => {
+    dispatch(getAllBooks(filters))
   }
 
-  useEffect(() => {
-    handleGetAllRents()
+ useEffect(() => {
+    handleGetAllBooks()
   }, [])
+
+  useEffect(() => {
+    handleGetAllBooks(filters)
+  }, [filters])
+  
 
   return (
     <div className='pt-12 pl-4 pr-4'>
-      <Filters groupButtonsTheme={'light'}/>
+      <Filters 
+        FiltersBodyComponent={<FiltersBody/>}
+        groupButtonsTheme={'light'}
+        filters={filters}
+        setFiltersAction={setBookFilters}
+      />
       <GeneralTable 
         columns={columns} 
-        data={filteredRents} 
+        data={table} 
         config={config} 
         isLoading={isLoading}
       />

@@ -2,11 +2,25 @@ import React from 'react'
 import Search from '../general/Search'
 import FilterGroupButtons from './FilterGroupButtons'
 
-const Filters = ({FiltersBodyComponent = <></>, filters, setFiltersAction, groupButtonsTheme = 'dark'}) => {
+const Filters = ({
+    FiltersBodyComponent = <></>, 
+    filters, 
+    setFiltersAction, 
+    groupButtonsTheme = 'dark',
+    hideSearch = false,
+    customFilterComponent
+  }) => {
+
   return (
     <div className='w-full flex flex-wrap gap-4 items-center justify-end pt-4 pb-4'>
-       <Search/>
-       <div className='pl-2'>
+      {
+        !hideSearch
+        ?
+          <Search  setFiltersAction={setFiltersAction}/>
+        : null
+      }
+      {customFilterComponent}
+       <div>
         <FilterGroupButtons
           groupButtonsTheme={groupButtonsTheme} 
           FiltersBodyComponent={FiltersBodyComponent} 

@@ -2,12 +2,16 @@ import React, { useEffect } from 'react';
 import dayjs from 'dayjs';
 import { useDispatch, useSelector } from 'react-redux';
 import { GeneralTable } from '../table/GeneralTable';
-import { selectAdminRentsIsLoading, selectAdminRentsList } from '../store/auth/selectors';
+import { selectAdminRentsIsLoading, selectAdminRentsList, selectAdminRentsListFilters } from '../store/auth/selectors';
 import useTableKeys from '../hooks/useTableKeys';
 import { getAllRents } from '../store/auth/actions'
 import User from '../components/admin/rents/User';
 import Book from '../components/admin/rents/Book';
 import RentActions from '../components/admin/rents/RentActions';
+import Filters from '../components/filters';
+import { setRentsFilters } from '../store/auth/slice';
+import FromUntilFilter from '../components/admin/rents/FromUntilFilter';
+import FiltersBody from '../components/admin/rents/FiltersBody';
 
 const AdminRents = () => {
   const dispatch = useDispatch()
@@ -39,22 +43,36 @@ const AdminRents = () => {
   };
 
   const rents = useSelector(selectAdminRentsList);
-  const filteredRents = useTableKeys(rents, config);
+  const updatedRents = useTableKeys(rents, config);
   const columns = Object.keys(config)
+  const filters = useSelector(selectAdminRentsListFilters)
 
-  const handleGetAllRents = () => {
-    dispatch(getAllRents())
+  const handleGetAllRents = (filters) => {
+    dispatch(getAllRents(filters))
   }
 
   useEffect(() => {
     handleGetAllRents()
   }, [])
 
+  
+  useEffect(() => {
+    handleGetAllRents(filters)
+  }, [filters])
+
   return (
     <div className='pt-12 pl-4 pr-4'>
+      <Filters
+        customFilterComponent={<FromUntilFilter/>}
+        FiltersBodyComponent={<FiltersBody/>}
+        groupButtonsTheme={'light'}
+        filters={filters}
+        setFiltersAction={setRentsFilters}
+        hideSearch={true}
+      />
       <GeneralTable 
         columns={columns} 
-        data={filteredRents} 
+        data={updatedRents} 
         config={config} 
         isLoading={isLoading}
       />
