@@ -70,9 +70,8 @@ const FiltersBody = ({ handleFilterSelect }) => {
     }
 
     const findStatusFilter = filters?.find(filter => filter?.key === 'status')
-    console.log('test', findStatusFilter)
+
     if(findStatusFilter){
-      console.log('test')
       setStatus(findStatusFilter.value)
     }
   }, [filters])
@@ -82,6 +81,14 @@ const FiltersBody = ({ handleFilterSelect }) => {
     getusers();
   }, [])
 
+  useEffect(() =>{
+    if(!filters?.length){
+      setBook('')
+      setUser('')
+      setStatus('')
+    }
+  }, [filters])
+  
   return (
     <div className='flex flex-col gap-4'>
       <div>Filter By Book:</div>

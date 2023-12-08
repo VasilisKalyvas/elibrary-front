@@ -70,7 +70,8 @@ const AdminRents = () => {
         setFiltersAction={setRentsFilters}
         hideSearch={true}
       />
-      <GeneralTable 
+      <GeneralTable
+        maxHeight={'540px'}
         columns={columns} 
         data={updatedRents} 
         config={config} 

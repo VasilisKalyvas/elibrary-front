@@ -58,6 +58,7 @@ const AdminBooks = () => {
         />
       </div>
       <GeneralTable 
+        maxHeight={'540px'}
         columns={columns} 
         data={table} 
         config={config} 

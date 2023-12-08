@@ -1,8 +1,10 @@
 import { Card, Spinner, Typography } from "@material-tailwind/react";
 
-export function GeneralTable({ columns, data, config, isLoading = false }) {
+export function GeneralTable({ maxHeight = '', columns, data, config, isLoading = false }) {
   return (
-    <Card className="relative h-full w-full overflow-auto min-h-[200px]">
+    <Card className={`relative h-full w-full overflow-auto min-h-[200px]`}
+      style={{maxHeight: maxHeight}}
+    >
       {
         isLoading
         ?
@@ -10,7 +12,7 @@ export function GeneralTable({ columns, data, config, isLoading = false }) {
             <Spinner/>
           </div>
         :
-          <table className="w-full min-w-max table-auto text-left">
+          <table className={`relative w-full min-w-max table-auto text-left`}>
             <thead>
               <tr>
                 {columns.map((head, index) => (

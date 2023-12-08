@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 import { FaTrashAlt } from "react-icons/fa";
-import { getBooks } from '../../../store/books/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUserIsLoggedIn } from '../../../store/auth/selectors';
 import { toast } from 'react-toastify'
@@ -16,7 +15,7 @@ const Actions = ({id}) => {
         if(!id || !token) return
         try {
             const url = `http://localhost:4000/api/books/${id}`;
-            const response = await axios.delete(url, {
+            await axios.delete(url, {
                 headers: {
                     Authorization: `${token}`,
                     'Content-Type': 'application/json',
