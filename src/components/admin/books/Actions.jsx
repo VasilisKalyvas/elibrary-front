@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectCurrentUserIsLoggedIn } from '../../../store/auth/selectors';
 import { toast } from 'react-toastify'
 import { defaultToastProps } from '../../../helpers/toastProps';
+import { getAllBooks } from '../../../store/auth/actions';
 
 const Actions = ({id}) => {
     const dispatch = useDispatch()
@@ -21,12 +22,8 @@ const Actions = ({id}) => {
                     'Content-Type': 'application/json',
                 },
             });
-
-            if(response?.data){
-                dispatch(getBooks())
-            } else {
-                return
-            }
+            dispatch(getAllBooks())
+            
             toast('Deleted Successfully', defaultToastProps)
         } catch (error) {
             throw error

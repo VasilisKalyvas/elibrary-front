@@ -106,7 +106,7 @@ export const register = createAsyncThunk(
       }
 
       try {
-        let url = 'http://localhost:4000/api/admin/allbooks'
+        let url = 'http://localhost:4000/api/admin/allbooks/?sortBy=createdAt&sortOrder=desc'
   
         if(filters?.length){
           url =  `${url}` + '?' + filters.map(filter => (
