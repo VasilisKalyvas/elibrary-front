@@ -11,6 +11,7 @@ import { setBookFilters } from '../store/auth/slice';
 import { selectAdminBooksListFilters, selectAdminBooksIsLoading, selectAdminBooksList } from '../store/auth/selectors';
 import { getAllBooks } from '../store/auth/actions';
 import FiltersBody from '../components/filters/FiltersBody';
+import CreateBook from '../components/admin/books/CreateBook';
 
 const AdminBooks = () => {
   const dispatch = useDispatch()
@@ -47,12 +48,15 @@ const AdminBooks = () => {
 
   return (
     <div className='pt-12 pl-4 pr-4'>
-      <Filters 
-        FiltersBodyComponent={<FiltersBody/>}
-        groupButtonsTheme={'light'}
-        filters={filters}
-        setFiltersAction={setBookFilters}
-      />
+      <div className='flex align-center'>
+        <CreateBook/>
+        <Filters 
+          FiltersBodyComponent={<FiltersBody/>}
+          groupButtonsTheme={'light'}
+          filters={filters}
+          setFiltersAction={setBookFilters}
+        />
+      </div>
       <GeneralTable 
         columns={columns} 
         data={table} 
